@@ -77,24 +77,4 @@ async function updateBlips() {
     await Delay(BLIP_UPDATE_DELAY);
 }
 
-async function cullBlips() {
-    l(`Culling blip list`, blips);
-
-    for (const [playerId, blip] of blips.entries()) {
-        const ped = GetPlayerPed(playerId);
-
-        l(`Maybe culling player ${playerId} with blip ${blip} on ped ${ped}`);
-
-        if (!DoesEntityExist(ped)) {
-            l(`Yes, culling ${ped} blip ${blip} for ${playerId}`);
-            deleteBlip(playerId, blip);
-        } else {
-            l(`No, not culling ${ped} blip ${blip} for ${playerId}`);
-        }
-    }
-
-    await Delay(BLIP_CULL_DELAY);
-}
-
 setTick(updateBlips);
-setTick(cullBlips);
