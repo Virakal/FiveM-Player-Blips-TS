@@ -9,7 +9,7 @@ const BLIP_CULL_DELAY = 10000;
 const BLIP_SIZE = 1;
 const BLIP_COLOUR = 25; // green
 const BLIP_CATEGORY = 7; // other player blip
-const DEBUG_LOG = true;
+const DEBUG_LOG = false;
 
 const blips: Map<number, number> = new Map();
 const peds: Map<number, number> = new Map();
