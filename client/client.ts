@@ -4,18 +4,24 @@ function Delay(ms: number): Promise<CitizenTimer> {
     return new Promise(res => setTimeout(res, ms, null));
 }
 
-const BLIP_UPDATE_DELAY = 1000;
-const BLIP_CULL_DELAY = 10000;
-const BLIP_SIZE = 1;
+function isTrueString(x: string) {
+    return ['yes', 'true', 'y', '1'].includes(x.toLowerCase());
+}
+
+function isFalseString(x: string) {
+    return ['no', 'false', 'n', '0', ''].includes(x.toLowerCase());
+}
+
+const BLIP_UPDATE_DELAY = GetConvarInt('virakal_blips_update_ms', 1000);
+const BLIP_SIZE = GetConvarInt('virakal_blips_size_percentage', 100) / 100;
 const BLIP_COLOUR = 25; // green
 const BLIP_CATEGORY = 7; // other player blip
-const DEBUG_LOG = false;
 
 const blips: Map<number, number> = new Map();
 const peds: Map<number, number> = new Map();
 
 function l(...messages: any[]) {
-    if (!DEBUG_LOG) {
+    if (!isTrueString(GetConvar('virakal_blips_debug_log', 'false'))) {
         return;
     }
 
@@ -54,17 +60,24 @@ function pedHasChanged(playerId: number, ped: number): boolean {
 
 async function updateBlips() {
     const playerList = GetActivePlayers();
+    const showSelf = isTrueString(GetConvar('virakal_blips_show_self', 'false'));
 
     l('Got player list', playerList);
 
     for (const playerId of playerList) {
-        if (playerId === GetPlayerIndex()) {
+        const existingBlip = blips.get(playerId);
+
+        if (!showSelf && playerId === GetPlayerIndex()) {
             // Don't make a blip for ourselves
             l(`skipping ${playerId} because its me!`);
+
+            if (existingBlip) {
+                deleteBlip(playerId, existingBlip);
+            }
+
             continue;
         }
 
-        const existingBlip = blips.get(playerId);
         const ped = GetPlayerPed(playerId);
         const pedExists = DoesEntityExist(ped);
 
