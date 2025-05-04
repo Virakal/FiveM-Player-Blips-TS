@@ -56,14 +56,14 @@ async function updateBlips() {
     const playerList = GetActivePlayers();
 
     l('Got player list', playerList);
-    
+
     for (const playerId of playerList) {
         if (playerId === GetPlayerIndex()) {
             // Don't make a blip for ourselves
             l(`skipping ${playerId} because its me!`);
             continue;
         }
-        
+
         const existingBlip = blips.get(playerId);
         const ped = GetPlayerPed(playerId);
         const pedExists = DoesEntityExist(ped);
