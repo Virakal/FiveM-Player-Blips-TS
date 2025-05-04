@@ -12,6 +12,7 @@ const BLIP_CATEGORY = 7; // other player blip
 const DEBUG_LOG = true;
 
 const blips: Map<number, number> = new Map();
+const peds: Map<number, number> = new Map();
 
 function l(...messages: any[]) {
     if (!DEBUG_LOG) {
@@ -27,10 +28,13 @@ function createBlip(playerId: number, ped: number): number {
     l(`Creating blip for player ${playerId}, ped ${ped}`);
 
     const blip = AddBlipForEntity(ped);
+
     blips.set(playerId, blip);
+    peds.set(playerId, ped);
+
     SetBlipNameToPlayerName(blip, playerId);
     SetBlipScale(blip, BLIP_SIZE);
-    SetBlipColour(blip, BLIP_COLOUR);
+    SetBlipColour(blip, BLIP_COLOUR + (playerId % 4));
     SetBlipCategory(blip, BLIP_CATEGORY);
 
     return blip;
@@ -41,6 +45,11 @@ function deleteBlip(playerId: number, blip: number) {
 
     RemoveBlip(blip);
     blips.delete(playerId);
+}
+
+function pedHasChanged(playerId: number, ped: number): boolean {
+    const oldPed = peds.get(playerId);
+    return ped !== oldPed;
 }
 
 async function updateBlips() {
@@ -63,14 +72,19 @@ async function updateBlips() {
         l(`Player ped for ${playerId} is ${ped}`);
         l(`Ped exists? ${pedExists ? 'y' : 'n'}`);
 
-        if (!existingBlip && pedExists) {
-            // Entity exists and we don't have a blip for it yet
+        if (
+            pedExists
+            && (!existingBlip || pedHasChanged(playerId, ped))
+        ) {
+            // Entity exists and we don't have a blip for it yet, or the ped had changed
+            l('Entity exists and we don\'t have a blip for it yet, or ped changed');
             createBlip(playerId, ped);
-            l('Entity exists and we don\'t have a blip for it yet');
         } else if (existingBlip && !pedExists) {
             // Entity doesn't exist - remove the blip
             l('Entity doesn\'t exist - remove the blip');
             deleteBlip(playerId, existingBlip);
+        } else {
+            l('Doing nothing');
         }
     }
 
