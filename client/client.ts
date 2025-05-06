@@ -61,7 +61,15 @@ function getBlipCategoryFromOption(option: string): number {
         regular_no_map_distance: 1,
     };
 
-    return options[option?.toLowerCase()] ?? 7;
+    const chosen = options[option?.toLowerCase()];
+
+    if (chosen !== undefined) {
+        l('Converted string blips type to number', option, asNumber);
+        return chosen;
+    }
+
+    console.log(`Problem with configured blip type: ${option}`);
+    return 7;
 }
 
 /**
