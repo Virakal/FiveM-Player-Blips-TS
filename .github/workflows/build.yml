@@ -33,7 +33,7 @@ jobs:
     - name: Archive Release
       uses: thedoctor0/zip-release@0.7.5
       with:
-        type: 'zip'
+        type: '7z'
         filename: 'resource.zip'
         path: ./{fxmanifest.lua,dist/*}
 
