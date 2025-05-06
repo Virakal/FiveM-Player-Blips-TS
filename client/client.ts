@@ -45,6 +45,16 @@ function isFalseString(x: string): boolean {
  * @returns the number associated with the option name
  */
 function getBlipCategoryFromOption(option: string): number {
+    const asNumber = Number.parseInt(option);
+
+    // Allow using a number for a custom category.
+    if (asNumber > 0) {
+        l('Numeric blip type configured', option, asNumber);
+        return asNumber;
+    }
+
+    l('Regular blips type', option, asNumber);
+
     const options: { [key: string]: number } = {
         other_player: 7,
         regular_with_map_distance: 2,

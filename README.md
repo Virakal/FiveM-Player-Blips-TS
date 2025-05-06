@@ -41,6 +41,8 @@ Other options are `regular_with_map_distance` which shows the players like regul
 
 `regular_no_map_distance` is the same as the above but with no distance.
 
+You can also set this to a number to use a custom type. See the [native call docs](https://github.com/citizenfx/natives/blob/master/HUD/SetBlipCategory.md) `index` argument for possible options.
+
 Default: `other_player`
 
 ### Blip Sprite
