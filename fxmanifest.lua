@@ -31,6 +31,8 @@ convar_category 'Blip options' {
             '$virakal_blips_sprite',
             'CV_INT',
             -1,
+            -1,
+            1000,
         },
     }
 }
