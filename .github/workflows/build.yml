@@ -30,12 +30,17 @@ jobs:
         yarn install
         yarn build
 
+    - name: Archive Release
+      uses: thedoctor0/zip-release@0.7.5
+      with:
+        type: 'zip'
+        filename: 'resource.zip'
+        path: ./{fxmanifest.lua,dist/*}
+
     - name: Automatic release
       uses: marvinpinto/action-automatic-releases@latest
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: latest
         prerelease: false
-        files: |
-            dist/*
-            fxmanifest.lua
+        files: resource.zip
