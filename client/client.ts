@@ -1,5 +1,3 @@
-console.log("[virakal-player-blips] Client Resource Started.");
-
 function Delay(ms: number): Promise<CitizenTimer> {
     return new Promise(res => setTimeout(res, ms, null));
 }
