@@ -15,6 +15,12 @@ convar_category 'Blip options' {
     'Customise blip appearance',
     {
         { 'Blip scale', '$virakal_blips_size_percentage', 'CV_COMBI', 100, 1, 500 },
+        {
+            'Blip colours - separated by a comma - see https://docs.fivem.net/docs/game-references/blips/#blip-colors',
+            '$virakal_blips_colours',
+            'CV_STRING',
+            '7,8,9,10,11,25,26,27,28,29,30,24',
+        },
         { 'Blip type', '$virakal_blips_style', 'CV_MULTI', {
             'other_player',
             'regular_with_map_distance',

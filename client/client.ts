@@ -27,8 +27,27 @@ function getBlipCategoryFromOption(option: string): number {
     return options[option?.toLowerCase()] ?? 7;
 }
 
+function parseBlipColours(option: string): number[] {
+    try {
+        const colours = option.split(',')
+            .map((x) => Number.parseInt(x.trim(), 10))
+            .filter((x) => x !== null && !isNaN(x));
+
+        if (colours.length === 0) {
+            throw new Error('No colours found!');
+        }
+
+        console.log(`Initialised blips with ${colours.length} colours:`, colours);
+
+        return colours;
+    } catch {
+        console.log('Error reading colours, check `virakal_blip_colours` convar.');
+        return [25];
+    }
+}
+
 const BLIP_CATEGORY = getBlipCategoryFromOption(GetConvar('virakal_blips_style', ''));
-const BLIP_COLOUR = 25; // green
+const BLIP_COLOURS = parseBlipColours(GetConvar('virakal_blips_colours', '25'));
 const BLIP_SIZE = GetConvarInt('virakal_blips_size_percentage', 100) / 100;
 const BLIP_UPDATE_DELAY = GetConvarInt('virakal_blips_update_ms', 1000);
 const LOGGING_ENABLED = isTrueString(GetConvar('virakal_blips_debug_log', 'false'));
@@ -47,6 +66,10 @@ function l(...messages: any[]) {
     }
 }
 
+function getBlipColour(playerId: number): number {
+    return BLIP_COLOURS[playerId % BLIP_COLOURS.length];
+}
+
 function createBlip(playerId: number, ped: number): number {
     l(`Creating blip for player ${playerId}, ped ${ped}`);
 
@@ -57,7 +80,7 @@ function createBlip(playerId: number, ped: number): number {
 
     SetBlipNameToPlayerName(blip, playerId);
     SetBlipScale(blip, BLIP_SIZE);
-    SetBlipColour(blip, BLIP_COLOUR + (playerId % 4));
+    SetBlipColour(blip, getBlipColour(playerId));
     SetBlipCategory(blip, BLIP_CATEGORY);
 
     return blip;
