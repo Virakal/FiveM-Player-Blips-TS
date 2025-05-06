@@ -26,6 +26,12 @@ convar_category 'Blip options' {
             'regular_with_map_distance',
             'regular_no_map_distance',
         }},
+        {
+            'Blip sprite - use -1 for default logic - see https://docs.fivem.net/docs/game-references/blips/#blips',
+            '$virakal_blips_sprite',
+            'CV_INT',
+            -1,
+        },
     }
 }
 

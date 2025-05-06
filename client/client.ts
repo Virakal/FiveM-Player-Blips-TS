@@ -49,6 +49,7 @@ function parseBlipColours(option: string): number[] {
 const BLIP_CATEGORY = getBlipCategoryFromOption(GetConvar('virakal_blips_style', ''));
 const BLIP_COLOURS = parseBlipColours(GetConvar('virakal_blips_colours', '25'));
 const BLIP_SIZE = GetConvarInt('virakal_blips_size_percentage', 100) / 100;
+const BLIP_SPRITE = GetConvarInt('virakal_blips_sprite', -1);
 const BLIP_UPDATE_DELAY = GetConvarInt('virakal_blips_update_ms', 1000);
 const LOGGING_ENABLED = isTrueString(GetConvar('virakal_blips_debug_log', 'false'));
 const SHOW_SELF = isTrueString(GetConvar('virakal_blips_show_self', 'false'));
@@ -78,10 +79,14 @@ function createBlip(playerId: number, ped: number): number {
     blips.set(playerId, blip);
     peds.set(playerId, ped);
 
-    SetBlipNameToPlayerName(blip, playerId);
+    if (BLIP_SPRITE > -1) {
+        SetBlipSprite(blip, BLIP_SPRITE);
+    }
+
     SetBlipScale(blip, BLIP_SIZE);
     SetBlipColour(blip, getBlipColour(playerId));
     SetBlipCategory(blip, BLIP_CATEGORY);
+    SetBlipNameToPlayerName(blip, playerId);
 
     return blip;
 }
