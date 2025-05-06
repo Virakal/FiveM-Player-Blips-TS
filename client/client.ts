@@ -1,4 +1,4 @@
-function Delay(ms: number): Promise<CitizenTimer> {
+function delay(ms: number): Promise<CitizenTimer> {
     return new Promise(res => setTimeout(res, ms, null));
 }
 
@@ -116,7 +116,7 @@ async function updateBlips() {
         }
     }
 
-    await Delay(BLIP_UPDATE_DELAY);
+    await delay(BLIP_UPDATE_DELAY);
 }
 
 setTick(updateBlips);
