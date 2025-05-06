@@ -12,10 +12,27 @@ function isFalseString(x: string) {
     return ['no', 'false', 'n', '0', ''].includes(x.toLowerCase());
 }
 
+/**
+ * Convert a convar option name to an internal blip type
+ *
+ * @see https://github.com/citizenfx/natives/blob/master/HUD/SetBlipCategory.md
+ * @param option the option name from the fxmanifest
+ * @returns the number associated with the option name
+ */
+function getBlipCategoryFromOption(option: string): number {
+    const options: { [key: string]: number } = {
+        other_player: 7,
+        regular_with_map_distance: 2,
+        regular_no_map_distance: 1,
+    }
+
+    return options[option?.toLowerCase()] ?? 7;
+}
+
 const BLIP_UPDATE_DELAY = GetConvarInt('virakal_blips_update_ms', 1000);
 const BLIP_SIZE = GetConvarInt('virakal_blips_size_percentage', 100) / 100;
 const BLIP_COLOUR = 25; // green
-const BLIP_CATEGORY = 7; // other player blip
+const BLIP_CATEGORY = getBlipCategoryFromOption(GetConvar('virakal_blips_style', ''));
 
 const blips: Map<number, number> = new Map();
 const peds: Map<number, number> = new Map();

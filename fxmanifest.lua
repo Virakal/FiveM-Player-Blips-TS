@@ -14,6 +14,11 @@ server_script 'dist/server.js'
 convar_category 'Blip options' {
     'Customise blip appearance',
     { 'Blip scale', '$virakal_blips_size_percentage', 'CV_COMBI', 100, 1, 500 }
+    { 'Blip type', '$virakal_blips_style', 'CV_MULTI', 100, {
+        'other_player',
+        'regular_with_map_distance',
+        'regular_no_map_distance',
+    }}
 }
 
 convar_category 'Internal options' {
