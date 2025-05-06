@@ -1,3 +1,4 @@
+.github
 client/*
 server/*
 package.json
