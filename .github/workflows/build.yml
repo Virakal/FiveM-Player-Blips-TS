@@ -33,9 +33,9 @@ jobs:
     - name: Archive Release
       uses: thedoctor0/zip-release@0.7.5
       with:
-        type: '7z'
-        filename: 'resource.zip'
-        path: ./{fxmanifest.lua,dist/*}
+        type: zip
+        filename: resource.zip
+        exclusions: '*.git* /*node_modules/* .editorconfig server/* client/* *.lock *.md .* package.json'
 
     - name: Automatic release
       uses: marvinpinto/action-automatic-releases@latest
