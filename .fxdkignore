@@ -1,5 +1,6 @@
 .github
 client/*
 server/*
+node_modules/*
 package.json
 build.js
