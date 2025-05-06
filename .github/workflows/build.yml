@@ -35,7 +35,7 @@ jobs:
       with:
         type: zip
         filename: resource.zip
-        exclusions: '*.git* /*node_modules/* .editorconfig server client *.lock *.md .* package.json build.js '
+        exclusions: '*.git* /*node_modules/* .editorconfig /*server/* /*client/* *.lock *.md .* package.json build.js'
 
     - name: Automatic release
       uses: marvinpinto/action-automatic-releases@latest
