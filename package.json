@@ -1,8 +1,10 @@
 {
 	"name": "virakal-player-blips",
 	"version": "1.0.0",
-	"main": "index.js",
-	"author": "you",
+	"author": {
+		"name": "Jon Goodger",
+		"url": "https://github.com/Virakal"
+	},
 	"license": "MIT",
 	"scripts": {
 		"build": "node build.js --mode=production",
