@@ -33,6 +33,7 @@ function isTrueString(x: string): boolean {
  * @param x the convar to parse
  * @returns the parsed value
  */
+// biome-ignore lint/correctness/noUnusedVariables: might be used eventually
 function isFalseString(x: string): boolean {
 	return ['no', 'false', 'n', '0', ''].includes(x.toLowerCase());
 }
@@ -118,6 +119,7 @@ const peds = new Map<number, number>();
  *
  * @param messages the messages to log
  */
+// biome-ignore lint/suspicious/noExplicitAny: the message can be anything
 function l(...messages: any[]): void {
 	if (!LOGGING_ENABLED) {
 		return;
