@@ -84,7 +84,7 @@ function parseBlipColours(option: string): number[] {
 		const colours = option
 			.split(',')
 			.map((x) => Number.parseInt(x.trim(), 10))
-			.filter((x) => x !== null && !isNaN(x));
+			.filter((x) => x !== null && !Number.isNaN(x));
 
 		if (colours.length === 0) {
 			throw new Error('No colours found!');
