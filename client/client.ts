@@ -14,7 +14,7 @@
  * @returns a promise to await to delay code execution
  */
 function delay(ms: number): Promise<CitizenTimer> {
-    return new Promise(res => setTimeout(res, ms, null));
+	return new Promise((res) => setTimeout(res, ms, null));
 }
 
 /**
@@ -24,7 +24,7 @@ function delay(ms: number): Promise<CitizenTimer> {
  * @returns the parsed value
  */
 function isTrueString(x: string): boolean {
-    return ['yes', 'true', 'y', '1'].includes(x.toLowerCase());
+	return ['yes', 'true', 'y', '1'].includes(x.toLowerCase());
 }
 
 /**
@@ -34,7 +34,7 @@ function isTrueString(x: string): boolean {
  * @returns the parsed value
  */
 function isFalseString(x: string): boolean {
-    return ['no', 'false', 'n', '0', ''].includes(x.toLowerCase());
+	return ['no', 'false', 'n', '0', ''].includes(x.toLowerCase());
 }
 
 /**
@@ -45,31 +45,31 @@ function isFalseString(x: string): boolean {
  * @returns the number associated with the option name
  */
 function getBlipCategoryFromOption(option: string): number {
-    const asNumber = Number.parseInt(option);
+	const asNumber = Number.parseInt(option);
 
-    // Allow using a number for a custom category.
-    if (asNumber > 0) {
-        l('Numeric blip type configured', option, asNumber);
-        return asNumber;
-    }
+	// Allow using a number for a custom category.
+	if (asNumber > 0) {
+		l('Numeric blip type configured', option, asNumber);
+		return asNumber;
+	}
 
-    l('Regular blips type', option, asNumber);
+	l('Regular blips type', option, asNumber);
 
-    const options: { [key: string]: number } = {
-        other_player: 7,
-        regular_with_map_distance: 2,
-        regular_no_map_distance: 1,
-    };
+	const options: { [key: string]: number } = {
+		other_player: 7,
+		regular_with_map_distance: 2,
+		regular_no_map_distance: 1,
+	};
 
-    const chosen = options[option?.toLowerCase()];
+	const chosen = options[option?.toLowerCase()];
 
-    if (chosen !== undefined) {
-        l('Converted string blips type to number', option, asNumber);
-        return chosen;
-    }
+	if (chosen !== undefined) {
+		l('Converted string blips type to number', option, asNumber);
+		return chosen;
+	}
 
-    console.log(`Problem with configured blip type: ${option}`);
-    return 7;
+	console.log(`Problem with configured blip type: ${option}`);
+	return 7;
 }
 
 /**
@@ -79,30 +79,35 @@ function getBlipCategoryFromOption(option: string): number {
  * @returns the option parsed into a list of integers
  */
 function parseBlipColours(option: string): number[] {
-    try {
-        const colours = option.split(',')
-            .map((x) => Number.parseInt(x.trim(), 10))
-            .filter((x) => x !== null && !isNaN(x));
+	try {
+		const colours = option
+			.split(',')
+			.map((x) => Number.parseInt(x.trim(), 10))
+			.filter((x) => x !== null && !isNaN(x));
 
-        if (colours.length === 0) {
-            throw new Error('No colours found!');
-        }
+		if (colours.length === 0) {
+			throw new Error('No colours found!');
+		}
 
-        console.log(`Initialised blips with ${colours.length} colours:`, colours);
+		console.log(`Initialised blips with ${colours.length} colours:`, colours);
 
-        return colours;
-    } catch {
-        console.log('Error reading colours, check `virakal_blip_colours` convar.');
-        return [25];
-    }
+		return colours;
+	} catch {
+		console.log('Error reading colours, check `virakal_blip_colours` convar.');
+		return [25];
+	}
 }
 
-const BLIP_CATEGORY = getBlipCategoryFromOption(GetConvar('virakal_blips_style', ''));
+const BLIP_CATEGORY = getBlipCategoryFromOption(
+	GetConvar('virakal_blips_style', ''),
+);
 const BLIP_COLOURS = parseBlipColours(GetConvar('virakal_blips_colours', '25'));
 const BLIP_SIZE = GetConvarInt('virakal_blips_size_percentage', 100) / 100;
 const BLIP_SPRITE = GetConvarInt('virakal_blips_sprite', -1);
 const BLIP_UPDATE_DELAY = GetConvarInt('virakal_blips_update_ms', 1000);
-const LOGGING_ENABLED = isTrueString(GetConvar('virakal_blips_debug_log', 'false'));
+const LOGGING_ENABLED = isTrueString(
+	GetConvar('virakal_blips_debug_log', 'false'),
+);
 const SHOW_SELF = isTrueString(GetConvar('virakal_blips_show_self', 'false'));
 
 const blips = new Map<number, number>();
@@ -114,13 +119,13 @@ const peds = new Map<number, number>();
  * @param messages the messages to log
  */
 function l(...messages: any[]): void {
-    if (!LOGGING_ENABLED) {
-        return;
-    }
+	if (!LOGGING_ENABLED) {
+		return;
+	}
 
-    for (const message of messages) {
-        console.log(message);
-    }
+	for (const message of messages) {
+		console.log(message);
+	}
 }
 
 /**
@@ -130,7 +135,7 @@ function l(...messages: any[]): void {
  * @returns a blip colour for the player
  */
 function getBlipColour(playerId: number): number {
-    return BLIP_COLOURS[playerId % BLIP_COLOURS.length];
+	return BLIP_COLOURS[playerId % BLIP_COLOURS.length];
 }
 
 /**
@@ -143,23 +148,23 @@ function getBlipColour(playerId: number): number {
  * @returns the blip ID
  */
 function createPlayerBlip(playerId: number, ped: number): number {
-    l(`Creating blip for player ${playerId}, ped ${ped}`);
+	l(`Creating blip for player ${playerId}, ped ${ped}`);
 
-    const blip = AddBlipForEntity(ped);
+	const blip = AddBlipForEntity(ped);
 
-    blips.set(playerId, blip);
-    peds.set(playerId, ped);
+	blips.set(playerId, blip);
+	peds.set(playerId, ped);
 
-    if (BLIP_SPRITE > -1) {
-        SetBlipSprite(blip, BLIP_SPRITE);
-    }
+	if (BLIP_SPRITE > -1) {
+		SetBlipSprite(blip, BLIP_SPRITE);
+	}
 
-    SetBlipScale(blip, BLIP_SIZE);
-    SetBlipColour(blip, getBlipColour(playerId));
-    SetBlipCategory(blip, BLIP_CATEGORY);
-    SetBlipNameToPlayerName(blip, playerId);
+	SetBlipScale(blip, BLIP_SIZE);
+	SetBlipColour(blip, getBlipColour(playerId));
+	SetBlipCategory(blip, BLIP_CATEGORY);
+	SetBlipNameToPlayerName(blip, playerId);
 
-    return blip;
+	return blip;
 }
 
 /**
@@ -169,10 +174,10 @@ function createPlayerBlip(playerId: number, ped: number): number {
  * @param blip the blip to remove
  */
 function deletePlayerBlip(playerId: number, blip: number): void {
-    l(`Deleting blip ${blip} for ${playerId}`);
+	l(`Deleting blip ${blip} for ${playerId}`);
 
-    RemoveBlip(blip);
-    blips.delete(playerId);
+	RemoveBlip(blip);
+	blips.delete(playerId);
 }
 
 /**
@@ -185,55 +190,52 @@ function deletePlayerBlip(playerId: number, blip: number): void {
  * @returns whether the ped has changed since we last saw it
  */
 function pedHasChanged(playerId: number, ped: number): boolean {
-    const oldPed = peds.get(playerId);
-    return ped !== oldPed;
+	const oldPed = peds.get(playerId);
+	return ped !== oldPed;
 }
 
 /**
  * Create and remove blips as needed
  */
 async function updateBlips(): Promise<void> {
-    const playerList = GetActivePlayers();
+	const playerList = GetActivePlayers();
 
-    l('Got player list', playerList);
+	l('Got player list', playerList);
 
-    for (const playerId of playerList) {
-        const existingBlip = blips.get(playerId);
+	for (const playerId of playerList) {
+		const existingBlip = blips.get(playerId);
 
-        if (!SHOW_SELF && playerId === GetPlayerIndex()) {
-            // Don't make a blip for ourselves
-            l(`skipping ${playerId} because its me!`);
+		if (!SHOW_SELF && playerId === GetPlayerIndex()) {
+			// Don't make a blip for ourselves
+			l(`skipping ${playerId} because its me!`);
 
-            if (existingBlip) {
-                deletePlayerBlip(playerId, existingBlip);
-            }
+			if (existingBlip) {
+				deletePlayerBlip(playerId, existingBlip);
+			}
 
-            continue;
-        }
+			continue;
+		}
 
-        const ped = GetPlayerPed(playerId);
-        const pedExists = DoesEntityExist(ped);
+		const ped = GetPlayerPed(playerId);
+		const pedExists = DoesEntityExist(ped);
 
-        l(`Blip stored for ${playerId} is #${existingBlip}`);
-        l(`Player ped for ${playerId} is ${ped}`);
-        l(`Ped exists? ${pedExists ? 'y' : 'n'}`);
+		l(`Blip stored for ${playerId} is #${existingBlip}`);
+		l(`Player ped for ${playerId} is ${ped}`);
+		l(`Ped exists? ${pedExists ? 'y' : 'n'}`);
 
-        if (
-            pedExists
-            && (!existingBlip || pedHasChanged(playerId, ped))
-        ) {
-            l('Entity exists and we don\'t have a blip for it yet, or ped changed');
-            createPlayerBlip(playerId, ped);
-        } else if (existingBlip && !pedExists) {
-            l('Entity doesn\'t exist - remove the blip');
-            deletePlayerBlip(playerId, existingBlip);
-        } else {
-            l('Doing nothing');
-        }
-    }
+		if (pedExists && (!existingBlip || pedHasChanged(playerId, ped))) {
+			l("Entity exists and we don't have a blip for it yet, or ped changed");
+			createPlayerBlip(playerId, ped);
+		} else if (existingBlip && !pedExists) {
+			l("Entity doesn't exist - remove the blip");
+			deletePlayerBlip(playerId, existingBlip);
+		} else {
+			l('Doing nothing');
+		}
+	}
 
-    // Wait for the delay time to save on server load
-    await delay(BLIP_UPDATE_DELAY);
+	// Wait for the delay time to save on server load
+	await delay(BLIP_UPDATE_DELAY);
 }
 
 // Run the update blips code on tick
