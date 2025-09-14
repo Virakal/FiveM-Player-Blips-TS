@@ -34,9 +34,9 @@ jobs:
         exclusions: '*.git* /*node_modules/* .editorconfig /*server/* /*client/* *.lock .* package.json build.js'
 
     - name: Automatic release
-      uses: marvinpinto/action-automatic-releases@latest
+      uses: softprops/action-gh-release@v2
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: latest
+        make_latest: true
+        tag_name: latest
         prerelease: false
         files: resource.zip
