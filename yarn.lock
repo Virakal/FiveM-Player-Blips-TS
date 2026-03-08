@@ -8,9 +8,9 @@
   integrity sha512-yA3p2PQiLHuOtJVkCzOZ/FD4qSylIugl/GxbGowM2kBYilSbHpPP0OC+Cy3heeUng3SCYajnIhFbdQfjudKZ2g==
 
 "@citizenfx/server@latest":
-  version "2.0.26261-1"
-  resolved "https://registry.yarnpkg.com/@citizenfx/server/-/server-2.0.26261-1.tgz#0f30f9d08a82c1cf305e93ee1688fb33a0c8e6bd"
-  integrity sha512-1xnpNOatQObfFlBEfgKQXNOaV1Xu9wTFul+eq2hAGjKMOqW2f5hE+4Ah30dT4+AnEFpEab/Lwkz3Ryw7GMWsOw==
+  version "2.0.26389-1"
+  resolved "https://registry.yarnpkg.com/@citizenfx/server/-/server-2.0.26389-1.tgz#b025bf903507e074313a50629a59dd55a744ec84"
+  integrity sha512-Jasy5W/s167g23VolEV8GyM6YrRwMcvI1tGtlSKcnm5fFrlOhe56hDBLmSIjB2Jf7FPCes12OCPGmW5NRwKT9Q==
 
 "@esbuild/linux-loong64@0.14.54":
   version "0.14.54"
