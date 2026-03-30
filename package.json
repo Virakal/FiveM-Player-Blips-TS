@@ -14,6 +14,6 @@
 		"@citizenfx/client": "latest",
 		"@citizenfx/server": "latest",
 		"@types/node": "^16.3.1",
-		"esbuild": "^0.14.10"
+		"esbuild": "^0.25.0"
 	}
 }
