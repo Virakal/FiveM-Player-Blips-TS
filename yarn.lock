@@ -3,14 +3,14 @@
 
 
 "@citizenfx/client@latest":
-  version "2.0.27722-1"
-  resolved "https://registry.yarnpkg.com/@citizenfx/client/-/client-2.0.27722-1.tgz#ec3197ec45b18835e82c5ceb50cc57ce3d5ccf12"
-  integrity sha512-EUpMoM2qjSbLrxkIC0Brf7hRTmp886FbEixu9KgDFZqx+O9g72EPjwpdmbO5J7FJyU3pGOoQtmmi5E4VG8mZKw==
+  version "2.0.28009-1"
+  resolved "https://registry.yarnpkg.com/@citizenfx/client/-/client-2.0.28009-1.tgz#21535d808a7e089dd50841890e9c8f475193b1ca"
+  integrity sha512-ItVBD273yYLcz3r1GtsK0AzXiAihRoxA3VHdJY/ycIu1GEoiysfcPILteve5Ft3vAjz8+RyRgFNjXyaBPZnQow==
 
 "@citizenfx/server@latest":
-  version "2.0.27722-1"
-  resolved "https://registry.yarnpkg.com/@citizenfx/server/-/server-2.0.27722-1.tgz#06acfcecae2ec0ab9a05f668922242a25182839b"
-  integrity sha512-rK6PvDq0gzClt7z/JhqQOmS8Qi4Mm7JGw7pt6bl/gn1kQRGL/1OacadlWKsUbyHS5/c4gsHeBuiiH4xQAkmiQQ==
+  version "2.0.28009-1"
+  resolved "https://registry.yarnpkg.com/@citizenfx/server/-/server-2.0.28009-1.tgz#67e23e008eb56597d4f47a86ad78a91326cafb13"
+  integrity sha512-H+TKrBj4jxO5VJdNydVNzkWIIaI+ah6WFVXOLxjSuFIy94ajbHLruCpydK4ITT7OLuv020fe1vpcZ6lhNOKtVg==
 
 "@esbuild/linux-loong64@0.14.54":
   version "0.14.54"
