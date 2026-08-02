@@ -3,9 +3,9 @@
 
 
 "@citizenfx/client@latest":
-  version "2.0.33230-1"
-  resolved "https://registry.yarnpkg.com/@citizenfx/client/-/client-2.0.33230-1.tgz#93183dc3b70ed5ec1b31061ed1ff14b9d344b20c"
-  integrity sha512-RAQzWsc257nvZpc7OMy1OHWjCKpSemR6oLn5x9T7ZZJhQ9koVGVEeF3WjRCz/z7F72Yhfvf5gbmDHir61feYTA==
+  version "2.0.33864-1"
+  resolved "https://registry.yarnpkg.com/@citizenfx/client/-/client-2.0.33864-1.tgz#08262ebbe3135247517e2bf3cd993b624a5d4577"
+  integrity sha512-nl6bIOSOofvO7P9EuAT7ZaZr7Pw/wyVNO+sy2XLKKGLfzMqa6kQUbMhGN0pxJzXv65UQBWNPLxuvgAJly04zIQ==
 
 "@citizenfx/server@latest":
   version "2.0.32561-1"
